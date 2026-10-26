@@ -77,3 +77,17 @@ Modell: qwen3.8:27b (4 Bit, nvfp4, MLX-Runner) · Reasoning aus · num_ctx 4096 
 - Bei Temperature 0,7 und 1,5 macht der Seed 42 alle Läufe innerhalb einer Temperaturstufe wortgleich reproduzierbar – der Zufall wird quasi „abgespielt" statt neu gewürfelt.
 - Der Seed ändert aber nichts am Charakter der Antwort: Temperatur bestimmt Kreativität/Länge, nicht der Seed.
 - Vergleich zwischen Gruppen auf verschiedenen Rechnern: Selbst bei identischen Einstellungen (Modell, Quantisierung, Parameter) ist wortgleiche Übereinstimmung nicht garantiert, weil Rechenpfad (GPU/CPU, Batching, Library-Versionen) kleinste numerische Abweichungen erzeugen kann – bei temperature > 0 verstärken diese die Abdrift. Bei Temperature 0 ist Übereinstimmung in der Praxis fast immer gegeben, "bit-exakt" aber nicht versichert.
+
+### Aufgabe 2.1 – Zusammenfassung (vorläufig, aus bisherigen Ergebnissen)
+
+Unsere Einschätzungen vor den Messungen haben sich bestätigt:
+- Höhere Temperature → sichtbar andere/creative Antworten (Längen 462–595 Zeichen bei T=1,5, dagegen nur ~625 Zeichen feste Fassung bei T=0).
+- Höhere Temperature mehr Halluzinationen: Bei T=1,5 ohne Seed tauchen ungewöhnliche Details auf, die im Märchen nicht vorkommen (z. B. „Steine, die der Wolf verschluckt" bei T=0,7; bei T=1,5 „ertrinkt" statt „stirbt" – eine Abweichung von der Vorlage).
+- Temperature = 0 → bei uns alle Läufe wortgleich, unabhängig vom Seed. „Immer" wäre zu stark, aber auf diesem Rechner mit identischer Umgebungs­konstellation (gleicher MLX-Runner, gleiches Modell, gleicher Kontext) war das Ergebnis reproduzierbar.
+
+### Dokumentation / Emphehlung (für die spätere Dokumentation)
+
+- Modell: Qwen3.8-27B, 4 Bit (nvfp4, MLX-Runner), Werkzeug: Ollama-API (Open WebUI als UI-Frontend identisch nutzbar), Reasoning aus (`think: false`), num_ctx 4096
+- Messung: Generierung ~50,5 Tokens/s, Speicher 38,5 GB (gemessen: RSS der llama-server-Prozess)
+- Schätzung vorher: ~8–10 GB (27B Parameter × 4 Bit ≈ ~7 GB + Tokenizer) -> Abweichung erklärt durch: Runtime-Overhead (Draft-/MTP-Modell, Attention-Buffers, KV-Cache) und MLX-Runtime-Puffer
+- Story-Ideen: siehe README.md, Rechte-Status: siehe assets.md
