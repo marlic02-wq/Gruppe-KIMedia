@@ -88,6 +88,6 @@ Unsere Einschätzungen vor den Messungen haben sich bestätigt:
 ### Dokumentation / Emphehlung (für die spätere Dokumentation)
 
 - Modell: Qwen3.8-27B, 4 Bit (nvfp4, MLX-Runner), Werkzeug: Ollama-API (Open WebUI als UI-Frontend identisch nutzbar), Reasoning aus (`think: false`), num_ctx 4096
-- Messung: Generierung ~50,5 Tokens/s, Speicher 38,5 GB (gemessen: RSS der llama-server-Prozess)
-- Schätzung vorher: ~8–10 GB (27B Parameter × 4 Bit ≈ ~7 GB + Tokenizer) -> Abweichung erklärt durch: Runtime-Overhead (Draft-/MTP-Modell, Attention-Buffers, KV-Cache) und MLX-Runtime-Puffer
+- Messung: Generierung ~50,5 Tokens/s, Speicher ~20–22 GB unified memory (von 24 GB RAM)
+- Schätzung vorher: ~14 GB (27B Parameter × 4 Bit ≈ 13,5 GB) -> Abweichung erklärt durch: KV-Cache für 4096 Kontext, MLX-Runtime-Overhead und Attention-Buffers, die im Unified Memory der Apple M2 gemeinsam mit den Parametern belegt werden
 - Story-Ideen: siehe README.md, Rechte-Status: siehe assets.md
