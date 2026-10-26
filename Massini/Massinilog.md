@@ -2,7 +2,7 @@
 
 > Zentrale Log-Datei: Hier werden alle Mess-/Generierungs-Experimente dokumentiert.
 > **Regel: Jede Eintrags-Einheit fixiert Datum, Aufgabe, Zweck (Warum), Modell,
-> vollständige Parameter (u. a. Seed, Temperature, num_ctx, reasoning) und Ergebnis.**
+> vollständige Parameter (u. a. Seed, Temperature, num_ctx, reasoning) und Ergebnis.** 
 
 ---
 
